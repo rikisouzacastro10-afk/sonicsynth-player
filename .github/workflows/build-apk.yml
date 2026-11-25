@@ -1,0 +1,66 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Configurar Java 17 (Gradle)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Instalar dependências do projeto
+        run: npm install
+
+      - name: Garantir Capacitor instalado
+        run: |
+          if ! grep -q "@capacitor/android" package.json; then
+            npm install @capacitor/core @capacitor/cli @capacitor/android
+          fi
+
+      - name: Compilar interface Web (Vite)
+        env:
+          VITE_YOUTUBE_API_KEY: ${{ secrets.VITE_YOUTUBE_API_KEY }}
+          VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
+        run: npm run build
+
+      - name: Configurar projeto Android (Capacitor)
+        run: |
+          WEB_DIR="dist"
+          if [ ! -d "dist" ] && [ -d "build" ]; then
+            WEB_DIR="build"
+          fi
+          if [ ! -f "capacitor.config.ts" ] && [ ! -f "capacitor.config.json" ]; then
+            npx cap init "SonicSynth" "com.sonicsynth.player" --web-dir="$WEB_DIR"
+          fi
+          if [ ! -d "android" ]; then
+            npx cap add android
+          fi
+          npx cap sync android
+
+      - name: Gerar APK de Debug
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Disponibilizar APK para download
+        uses: actions/upload-artifact@v4
+        with:
+          name: SonicSynth-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
