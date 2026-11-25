@@ -13,24 +13,24 @@ jobs:
       - name: Baixar código do repositório
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js 20
+      - name: Configurar Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
-      - name: Configurar Java 17 (Gradle)
+      - name: Configurar Java 21 (Gradle)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
 
       - name: Instalar dependências do projeto
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Garantir Capacitor instalado
         run: |
           if ! grep -q "@capacitor/android" package.json; then
-            npm install @capacitor/core @capacitor/cli @capacitor/android
+            npm install @capacitor/core @capacitor/cli @capacitor/android --legacy-peer-deps
           fi
 
       - name: Compilar interface Web (Vite)
