@@ -1,0 +1,557 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-display: 'Bricolage Grotesque', 'Plus Jakarta Sans', sans-serif;
+    --font-serif: 'Fraunces', Georgia, serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --font-condensed: 'Archivo', 'Plus Jakarta Sans', sans-serif;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: contain;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+.font-serif-editorial {
+  font-family: var(--font-serif);
+}
+.font-mono-tech {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.font-condensed {
+  font-family: var(--font-condensed);
+}
+
+/* ============================================================================
+   60 FPS GPU-Accelerated Animations (Strictly transform & opacity ONLY)
+   Automatically paused when !isPlaying (.anim-paused) or tab minimized (.app-hidden)
+   ============================================================================ */
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes tape-reel-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes eq-bar-dance {
+  0%, 100% {
+    transform: scaleY(0.2);
+  }
+  20% {
+    transform: scaleY(0.92);
+  }
+  45% {
+    transform: scaleY(0.44);
+  }
+  70% {
+    transform: scaleY(0.98);
+  }
+  85% {
+    transform: scaleY(0.55);
+  }
+}
+
+@keyframes speaker-thump {
+  0%, 100% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.06);
+  }
+  68% {
+    transform: scale(0.975);
+  }
+}
+
+@keyframes aura-pulse {
+  0%, 100% {
+    opacity: 0.42;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes marquee-glide {
+  0%, 12% {
+    transform: translateX(0%);
+  }
+  48%, 58% {
+    transform: translateX(var(--marquee-offset, -35%));
+  }
+  92%, 100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes kawaii-hop {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  42% {
+    transform: translateY(-7px) scale(1.05);
+  }
+  75% {
+    transform: translateY(1px) scale(0.97);
+  }
+}
+
+@keyframes cloud-drift {
+  0%, 100% {
+    transform: translateX(-7px);
+  }
+  50% {
+    transform: translateX(9px);
+  }
+}
+
+@keyframes charm-sway {
+  0%, 100% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes twinkle-pulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.84) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.16) rotate(12deg);
+  }
+}
+
+@keyframes note-float {
+  0%, 100% {
+    opacity: 0.35;
+    transform: translateY(4px) scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-7px) scale(1.08);
+  }
+}
+
+@keyframes vu-needle-dance {
+  0%, 100% {
+    transform: rotate(-30deg);
+  }
+  25% {
+    transform: rotate(18deg);
+  }
+  52% {
+    transform: rotate(-4deg);
+  }
+  78% {
+    transform: rotate(26deg);
+  }
+}
+
+@keyframes vu-needle-dance-alt {
+  0%, 100% {
+    transform: rotate(-22deg);
+  }
+  28% {
+    transform: rotate(22deg);
+  }
+  58% {
+    transform: rotate(-12deg);
+  }
+  84% {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes jukebox-neon {
+  0%, 100% {
+    opacity: 0.62;
+    transform: scaleX(0.99);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1.01);
+  }
+}
+
+@keyframes scan-beam-sweep {
+  0% {
+    opacity: 0.15;
+    transform: translateX(-100%);
+  }
+  50% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0.15;
+    transform: translateX(220%);
+  }
+}
+
+@keyframes tape-glide {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(-24px);
+  }
+}
+
+.anim-spin-vinyl {
+  animation: spin-slow 4s linear infinite;
+  will-change: transform;
+}
+
+.anim-spin-reel {
+  animation: tape-reel-spin 2.2s linear infinite;
+  will-change: transform;
+}
+
+.anim-spin-disc {
+  animation: spin-slow 1.8s linear infinite;
+  will-change: transform;
+}
+
+.anim-spin-gear {
+  animation: spin-slow 7s linear infinite;
+  will-change: transform;
+}
+
+.anim-eq-bar {
+  transform-origin: bottom;
+  animation: eq-bar-dance 0.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.anim-speaker-pulse {
+  animation: speaker-thump 0.54s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  will-change: transform;
+}
+
+.anim-aura-pulse {
+  animation: aura-pulse 2.2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.anim-marquee {
+  animation: marquee-glide 9s ease-in-out infinite;
+  will-change: transform;
+}
+
+.anim-kawaii-hop {
+  animation: kawaii-hop 1.05s ease-in-out infinite;
+  will-change: transform;
+}
+
+.anim-cloud-drift {
+  animation: cloud-drift 4.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+.anim-charm-sway {
+  transform-origin: top center;
+  animation: charm-sway 2.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.anim-twinkle {
+  animation: twinkle-pulse 2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.anim-note-float {
+  animation: note-float 2.4s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.anim-vu-needle {
+  transform-origin: bottom center;
+  animation: vu-needle-dance 0.85s ease-in-out infinite;
+  will-change: transform;
+}
+
+.anim-vu-needle-alt {
+  transform-origin: bottom center;
+  animation: vu-needle-dance-alt 0.96s ease-in-out infinite;
+  will-change: transform;
+}
+
+.anim-jukebox-neon {
+  animation: jukebox-neon 1.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.anim-scan-beam {
+  animation: scan-beam-sweep 3.2s linear infinite;
+  will-change: transform, opacity;
+}
+
+.anim-tape-glide {
+  animation: tape-glide 1.4s linear infinite;
+  will-change: transform;
+}
+
+.anim-paused {
+  animation-play-state: paused !important;
+}
+
+/* Global pause when Android WebView / browser tab is hidden (battery + zero CPU usage) */
+.app-hidden *,
+.app-hidden *::before,
+.app-hidden *::after {
+  animation-play-state: paused !important;
+}
+
+.pb-safe {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+.pt-safe {
+  padding-top: max(0.75rem, env(safe-area-inset-top));
+}
+
+.thin-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.thin-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.25);
+  border-radius: 9999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-spin-vinyl,
+  .anim-spin-reel,
+  .anim-spin-disc,
+  .anim-spin-gear,
+  .anim-eq-bar,
+  .anim-speaker-pulse,
+  .anim-aura-pulse,
+  .anim-marquee,
+  .anim-kawaii-hop,
+  .anim-cloud-drift,
+  .anim-charm-sway,
+  .anim-twinkle,
+  .anim-note-float,
+  .anim-vu-needle,
+  .anim-vu-needle-alt,
+  .anim-jukebox-neon,
+  .anim-scan-beam,
+  .anim-tape-glide {
+    animation: none !important;
+  }
+}
+
+/* Compact framing when a Retro or Modern UI renders inside FullscreenPlayerOverlay */
+.embedded-player-stage > div {
+  min-height: auto !important;
+  padding-bottom: 1.5rem !important;
+}
+
+/* ============================================================================
+   Liquid Glass Mode (iOS 26 / visionOS Refractive Surfaces — 3 Intensity Levels)
+   ============================================================================ */
+[data-liquid-glass="basic"] {
+  --glass-blur: blur(10px) saturate(135%);
+  --glass-bg: rgba(255, 255, 255, 0.74);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.65);
+  --glass-specular: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  --glass-shadow: 0 8px 22px rgba(15, 23, 42, 0.1);
+}
+
+.dark[data-liquid-glass="basic"],
+[data-liquid-glass="basic"].dark {
+  --glass-bg: rgba(18, 24, 38, 0.72);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.16);
+  --glass-specular: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  --glass-shadow: 0 10px 26px rgba(0, 0, 0, 0.32);
+}
+
+[data-liquid-glass="medium"] {
+  --glass-blur: blur(22px) saturate(175%);
+  --glass-bg: rgba(255, 255, 255, 0.56);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.78);
+  --glass-specular: inset 0 1px 1.5px rgba(255, 255, 255, 0.92);
+  --glass-shadow: 0 12px 32px rgba(15, 23, 42, 0.14);
+}
+
+.dark[data-liquid-glass="medium"],
+[data-liquid-glass="medium"].dark {
+  --glass-bg: rgba(18, 24, 38, 0.52);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.32);
+  --glass-specular: inset 0 1px 1.5px rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 14px 36px rgba(0, 0, 0, 0.38);
+}
+
+[data-liquid-glass="high"] {
+  --glass-blur: blur(34px) saturate(220%);
+  --glass-bg: rgba(255, 255, 255, 0.34);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.9);
+  --glass-specular: inset 0 1.5px 2.5px rgba(255, 255, 255, 0.98), inset 0 -1.5px 2px rgba(255, 255, 255, 0.42);
+  --glass-shadow: 0 18px 44px rgba(15, 23, 42, 0.18), 0 0 18px rgba(255, 255, 255, 0.24);
+}
+
+.dark[data-liquid-glass="high"],
+[data-liquid-glass="high"].dark {
+  --glass-bg: rgba(15, 21, 35, 0.32);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.46);
+  --glass-specular: inset 0 1.5px 2.5px rgba(255, 255, 255, 0.72), inset 0 -1.5px 2px rgba(255, 255, 255, 0.22);
+  --glass-shadow: 0 20px 48px rgba(0, 0, 0, 0.48), 0 0 22px rgba(255, 255, 255, 0.12);
+}
+
+[data-liquid-glass="basic"] [data-dock-ui],
+[data-liquid-glass="basic"] [data-mini-player],
+[data-liquid-glass="basic"] [data-lg-card],
+[data-liquid-glass="basic"] [data-lg-surface],
+[data-liquid-glass="medium"] [data-dock-ui],
+[data-liquid-glass="medium"] [data-mini-player],
+[data-liquid-glass="medium"] [data-lg-card],
+[data-liquid-glass="medium"] [data-lg-surface],
+[data-liquid-glass="high"] [data-dock-ui],
+[data-liquid-glass="high"] [data-mini-player],
+[data-liquid-glass="high"] [data-lg-card],
+[data-liquid-glass="high"] [data-lg-surface] {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  border: var(--glass-border) !important;
+  box-shadow: var(--glass-specular), var(--glass-shadow) !important;
+  transform: translateZ(0);
+}
+
+/* ============================================================================
+   SpicyLyrics Fluid Organic Background Keyframes (GPU-only)
+   ============================================================================ */
+@keyframes spicy-blob-a {
+  0%, 100% {
+    transform: translate3d(-8%, -6%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(14%, 10%, 0) scale(1.16);
+  }
+}
+
+@keyframes spicy-blob-b {
+  0%, 100% {
+    transform: translate3d(10%, 12%, 0) scale(1.05);
+  }
+  50% {
+    transform: translate3d(-12%, -8%, 0) scale(0.92);
+  }
+}
+
+@keyframes spicy-blob-c {
+  0%, 100% {
+    transform: translate3d(0%, -10%, 0) scale(0.95);
+  }
+  50% {
+    transform: translate3d(-8%, 14%, 0) scale(1.12);
+  }
+}
+
+.spicy-blob-a {
+  animation: spicy-blob-a 14s ease-in-out infinite;
+  will-change: transform;
+}
+
+.spicy-blob-b {
+  animation: spicy-blob-b 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+.spicy-blob-c {
+  animation: spicy-blob-c 21s ease-in-out infinite;
+  will-change: transform;
+}
+
+.spicy-word-fill {
+  background-image: linear-gradient(
+    90deg,
+    var(--spicy-word-fg, #ffffff) var(--word-fill, 0%),
+    var(--spicy-word-dim, rgba(255, 255, 255, 0.38)) var(--word-fill, 0%)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: transform 140ms cubic-bezier(0.16, 1, 0.3, 1), filter 140ms ease;
+}
+
+/* Battery Saver / Performance Mode */
+.battery-saver .anim-aura-pulse,
+.battery-saver .anim-twinkle,
+.battery-saver .anim-note-float,
+.battery-saver .spicy-blob-a,
+.battery-saver .spicy-blob-b,
+.battery-saver .spicy-blob-c {
+  animation: none !important;
+}
+
+/* Official Google Sign-In Button Styling */
+.gsi-material-button {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  background-color: #ffffff;
+  border: 1px solid #747775;
+  border-radius: 9999px;
+  box-sizing: border-box;
+  color: #1f1f1f;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', Roboto, arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  height: 40px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+.gsi-material-button:hover:not(:disabled) {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  background-color: #f8fafc;
+}
+.gsi-material-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.gsi-material-button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+
