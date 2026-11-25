@@ -48,7 +48,8 @@ jobs:
           if [ ! -f "capacitor.config.ts" ] && [ ! -f "capacitor.config.json" ]; then
             npx cap init "SonicSynth" "com.sonicsynth.player" --web-dir="$WEB_DIR"
           fi
-          if [ ! -d "android" ]; then
+          if [ ! -f "android/gradlew" ]; then
+            rm -rf android
             npx cap add android
           fi
           npx cap sync android
